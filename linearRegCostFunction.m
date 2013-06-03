@@ -21,13 +21,16 @@ grad = zeros(size(theta));
 
 % Compute the cost function
 h = X * theta;
-J = 1 / (2 * m) * sum((h - y) .^ 2)
+J = 1 / (2 * m) * sum((h - y) .^ 2);
 
-reg_parameter = lambda / (2 * m) * sum(theta(2: end, :) .^ 2) % or more specifically sum(theta(2, 1) .^ 2)
+reg_parameter = lambda / (2 * m) * sum(theta(2: end, :) .^ 2); % or more specifically sum(theta(2, 1) .^ 2)
 J = J + reg_parameter;
 
-
-
+% Compute the gradient
+grad = 1 / m * X' * (h - y);
+reg_parameter = (lambda / m) * theta;
+reg_parameter(1, 1) = 0;
+grad = grad + reg_parameter;
 
 
 
